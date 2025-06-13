@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 #include <set>
+#include <cmath>
+#include <list>
 
 using namespace std;
 
@@ -10,12 +12,13 @@ class Cinema{
     private:
         string cinemaID;
         string nameCinema;
-        int coordinateX, coordinateY;
+        double coordinateX, coordinateY;
         double ticketPrice;
         vector <string> exhibitionFilms;
 
     public: 
 
+    // Construtor
     Cinema(const string& line){
         stringstream ss(line);
         string field;
@@ -26,9 +29,9 @@ class Cinema{
         
         // coordinateX e coordinateY
         getline(ss, field, ',');
-        coordinateX = stoi(field);
+        coordinateX = stod(field);
         getline(ss, field, ',');
-        coordinateY = stoi(field);
+        coordinateY = stod(field);
 
         // ticketPrice
         getline(ss, field, ',');
@@ -42,6 +45,7 @@ class Cinema{
         }
     }
 
+    // Impressão de cada line
     void imprimir() const {
         cout << "CinemaID: " << cinemaID
              << ", Nome: " << nameCinema
@@ -60,5 +64,39 @@ class Cinema{
         }
         cout << endl;
     }
+
+    // function 4
+    list <Cinema> location(const list <Cinema>& cinema ,double radius, double coordinateX, double coordinateY){
+        list <Cinema> result;
+        double distance;
+
+        for(const Cinema& c : cinema){
+            distance = calculateDistance(coordinateX, coordinateY, c.coordinateX, c.coordinateY);
+
+            if(distance <= radius)
+                result.push_back(c);
+        }
+
+        return result;
+    }
+
+    double calculateDistance(double x0, double y0, double x1, double y1){
+        return sqrt(pow(x1 - x0, 2) + pow(y1 - y0, 2));
+    }
+
+    // function 5
+    list <Cinema> price(const list <Cinema>& cinema, double price){
+        list <Cinema> prices;
+
+        for(const Cinema& c : cinema){
+            if(c.ticketPrice <= price)
+                prices.push_back(c);
+        }
+
+        return prices;
+    }
+
+    // function 6
+    list <Cinema> year(const list <string>);
 
 };
