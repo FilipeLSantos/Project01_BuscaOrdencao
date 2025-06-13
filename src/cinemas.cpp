@@ -20,22 +20,45 @@ class Cinema{
         stringstream ss(line);
         string field;
 
+        // CinemaID e nameCinema
         getline(ss, cinemaID, ',');
         getline(ss, nameCinema, ',');
         
-        getline(ss, field,',');
+        // coordinateX e coordinateY
+        getline(ss, field, ',');
         coordinateX = stoi(field);
-
-        getline(ss, field,',');
+        getline(ss, field, ',');
         coordinateY = stoi(field);
 
-        getline(ss, field,',');
+        // ticketPrice
+        getline(ss, field, ',');
         ticketPrice = stod(field);
 
-        
-
-
+        // exhibitionFilms
+        while(getline(ss, field, ',')){
+            if(!field.empty()){
+                exhibitionFilms.push_back(field);
+            }
+        }
     }
 
+    void imprimir() const {
+        cout << "CinemaID: " << cinemaID
+             << ", Nome: " << nameCinema
+             << ", Coordenadas: (" << coordinateX << "," << coordinateY << ")"
+             << ", Preço do Ingresso: R$" << ticketPrice
+             << ", Filmes em Exibição: ";
+        if(exhibitionFilms.empty()){
+            cout << "Nenhum";
+        }else{
+            for(size_t i = 0; i < exhibitionFilms.size(); ++i) {
+                cout << exhibitionFilms[i];
+
+                if (i < exhibitionFilms.size() - 1)
+                    cout << ", ";
+            }
+        }
+        cout << endl;
+    }
 
 };
