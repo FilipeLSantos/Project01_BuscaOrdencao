@@ -97,6 +97,8 @@ class Cinema{
     }
 
     // function 6
-    list <Cinema> year(const list <string>);
+    list <Cinema> year(const list <string>){
+        
+    }
 
 };
