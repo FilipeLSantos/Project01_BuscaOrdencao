@@ -66,8 +66,8 @@ class Cinema{
     }
 
     // function 4
-    list <Cinema> location(const list <Cinema>& cinema ,double radius, double coordinateX, double coordinateY){
-        list <Cinema> result;
+    vector <Cinema> location(const vector <Cinema>& cinema ,double radius, double coordinateX, double coordinateY){
+        vector <Cinema> result;
         double distance;
 
         for(const Cinema& c : cinema){
@@ -85,8 +85,8 @@ class Cinema{
     }
 
     // function 5
-    list <Cinema> price(const list <Cinema>& cinema, double price){
-        list <Cinema> prices;
+    vector <Cinema> price(const list <Cinema>& cinema, double price){
+        vector <Cinema> prices;
 
         for(const Cinema& c : cinema){
             if(c.ticketPrice <= price)

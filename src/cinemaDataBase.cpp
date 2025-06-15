@@ -1,15 +1,11 @@
-#include <iostream>
 #include <string>
 #include <vector>
+#include "Cinema.cpp"
 
 
 using namespace std;
 
 class CinemaDataBase{
-    private:
-    
     public:
-        CinemaDataBase();
-        ~CinemaDataBase();
-
+        vector <Cinema> allCinemas;
 };
