@@ -1,104 +1,68 @@
-#include <iostream>
-#include <sstream>
-#include <string>
 #include <vector>
-#include <set>
-#include <cmath>
-#include <list>
+#include <string>
+#include <sstream>
+#include <iostream>
 
 using namespace std;
+
+struct Coordinate{
+    double x, y;
+};
 
 class Cinema{
     private:
         string cinemaID;
         string nameCinema;
-        double coordinateX, coordinateY;
+        Coordinate point;
         double ticketPrice;
-        vector <string> exhibitionFilms;
+        vector <string> exibitionFilms;
 
-    public: 
+    public:
+        // leitura do arquivo
+        Cinema(const string& line){
+            stringstream ss(line);
+            string field;
 
-    // Construtor
-    Cinema(const string& line){
-        stringstream ss(line);
-        string field;
+            // CinemaID e nameCinema
+            getline(ss, cinemaID, ',');
+            getline(ss, nameCinema, ',');
 
-        // CinemaID e nameCinema
-        getline(ss, cinemaID, ',');
-        getline(ss, nameCinema, ',');
-        
-        // coordinateX e coordinateY
-        getline(ss, field, ',');
-        coordinateX = stod(field);
-        getline(ss, field, ',');
-        coordinateY = stod(field);
+            // Coordinate point
+            getline(ss, field, ',');
+            point.x = stod(field);
+            getline(ss, field, ',');
+            point.y = stod(field);
 
-        // ticketPrice
-        getline(ss, field, ',');
-        ticketPrice = stod(field);
+            // ticketPrice
+            getline(ss, field, ',');
+            ticketPrice = stod(field);
 
-        // exhibitionFilms
-        while(getline(ss, field, ',')){
-            if(!field.empty()){
-                exhibitionFilms.push_back(field);
+            // exibitionFilms
+            while(getline(ss, field, ',')){
+                if(!field.empty())
+                    exibitionFilms.push_back(field);
             }
         }
-    }
 
-    // Impressão de cada line
-    void imprimir() const {
-        cout << "CinemaID: " << cinemaID
-             << ", Nome: " << nameCinema
-             << ", Coordenadas: (" << coordinateX << "," << coordinateY << ")"
-             << ", Preço do Ingresso: R$" << ticketPrice
-             << ", Filmes em Exibição: ";
-        if(exhibitionFilms.empty()){
-            cout << "Nenhum";
-        }else{
-            for(size_t i = 0; i < exhibitionFilms.size(); ++i) {
-                cout << exhibitionFilms[i];
+        // Impressão
+        void print() const{
+            cout << "Cinema ID: " << cinemaID
+                << "Nome: " << nameCinema
+                << "Cordenadas [" << point.x  << ", " << point.y << "]"
+                << "Preço do Ingresso: R$ " << ticketPrice
+                << "Filmes em exibição: { ";
 
-                if (i < exhibitionFilms.size() - 1)
-                    cout << ", ";
+            if(exibitionFilms.empty())
+                cout << "Nenhum fileme em cartaz !";
+            else{
+                for(int i = 0; i < exibitionFilms.size(); i++){
+                    cout << exibitionFilms[i];
+
+                    if(i < exibitionFilms.size()-1)
+                        cout << ", ";
+                }
             }
+            cout << " }";
         }
-        cout << endl;
-    }
-
-    // function 4
-    vector <Cinema> location(const vector <Cinema>& cinema ,double radius, double coordinateX, double coordinateY){
-        vector <Cinema> result;
-        double distance;
-
-        for(const Cinema& c : cinema){
-            distance = calculateDistance(coordinateX, coordinateY, c.coordinateX, c.coordinateY);
-
-            if(distance <= radius)
-                result.push_back(c);
-        }
-
-        return result;
-    }
-
-    double calculateDistance(double x0, double y0, double x1, double y1){
-        return sqrt(pow(x1 - x0, 2) + pow(y1 - y0, 2));
-    }
-
-    // function 5
-    vector <Cinema> price(const list <Cinema>& cinema, double price){
-        vector <Cinema> prices;
-
-        for(const Cinema& c : cinema){
-            if(c.ticketPrice <= price)
-                prices.push_back(c);
-        }
-
-        return prices;
-    }
-
-    // function 6
-    list <Cinema> year(const list <string>){
         
-    }
-
 };
