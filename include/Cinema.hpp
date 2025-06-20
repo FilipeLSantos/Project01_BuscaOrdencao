@@ -1,3 +1,4 @@
+#pragma once
 #include <vector>
 #include <string>
 #include <sstream>
@@ -7,10 +8,14 @@ using namespace std;
 
 struct Coordinate{
     double x, y;
+
+    bool operator==(const Coordinate& other) const {
+        return x == other.x && y == other.y;
+    }
 };
 
 class Cinema{
-    private:
+    public:
         string cinemaID;
         string nameCinema;
         Coordinate point;
